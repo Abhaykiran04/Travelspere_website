@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="img/favicon.ico" rel="icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation" aria-label="Main navigation">
+        <a class="navbar-brand" href="#">TRAVELSPERE</a>
+    </nav>
+
+    <!-- Login Form Section -->
+    <main>
+        <div class="container1">
+            <form class="login-form" method="dialog" onsubmit="return validatePassword()">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="username" accesskey="u"><span class="underline">U</span>sername</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" autofocus
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="password" accesskey="a">P<span class="underline">a</span>ssword</label>
+                    <div class="pass-state-change">
+                        <input type="password" id="password" name="password" placeholder="Enter your password"
+                            required />
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                            <!-- <img src="eye-icon.jpeg" id="toggleIcon" alt="Toggle visibility" /> -->
+                            <i class="ri-eye-fill" id="toggleIcon"></i>
+                        </span>
+                    </div>
+                    <p id="passwordMessage" class="message"></p>
+                </div>
+                <p class="new-user">New user? <a class="new-user" href="signup.html">Sign in</a></p>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                    <div
+                        class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
+                        <p class="mb-0"><i class="fa fa-envelope mr-2"></i>travelspere@example.com</p>
+                        <p class="text-body mx-3 d-none d-lg-block">|</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</p>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex justify-content-center justify-content-lg-end">
+                        <a class="text-primary px-3" href="" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-primary px-3" href="" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-primary px-3" href="" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class="m-0 mt-3">© 2024 Travelspere. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <!-- JavaScript (Bootstrap and jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const passwordField = document.getElementById("password");
+        passwordField.onpaste = function (e) {
+            e.preventDefault();
+            alert("Pasting password is not allowed");
+        };
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            const passwordMessage = document.getElementById("passwordMessage");
+            const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+            if (!passwordPattern.test(password)) {
+                passwordMessage.textContent = "Password must be at least 8 characters long and include a number and a special character.";
+                passwordMessage.style.color = "red";
+                return false; // Prevent form submission
+            } else {
+                passwordMessage.textContent = "";
+                document.querySelector('.container').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 300);
+                return true;
+            }
+        }
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const toggleIcon = document.getElementById("toggleIcon");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.add("ri-eye-off-fill");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("ri-eye-off-fill");
+                toggleIcon.classList.add("ri-eye-fill");
+            }
+        }
+    </script>
+</body>
+
+</html>
